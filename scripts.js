@@ -91,12 +91,12 @@ const DOM = {
 
             const amount = Utils.formatCurrency(transaction.amount)
 
-            const hmtl = `
+            const html = `
                   <td class="description">${transaction.description}</td>
-                  <td class="${CSSclass}$">${amount}</td>
+                  <td class="${CSSclass}">${amount}</td>
                   <td class="date">${transaction.date}</td>
                   <td>
-                  <img onclick="Transaction.remove(${index}$)" src="./assets/minus.svg" alt="Remover transação" />
+                  <img onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação" />
                   </td>
             `
             return html
@@ -123,9 +123,8 @@ const DOM = {
 
 const Utils = {
       formatAmount(value) {
-            value = Number(value) * 100
-            // Ou  
-            // value = Number(value.replace(/\,\./g,"")) * 100
+            // value = Number(value) * 100
+            value = Number(value.replace(/\,\./g,"")) * 100
 
             return value
       },
@@ -218,11 +217,8 @@ const Form = {
 
 const App = {
       init() {
-            transactions.forEach((transaction, index) => {
-                  DOM.addTransaction(transaction, index)
-                  // OU transactions.forEach(DOM.addTransaction)
-            })
-
+            Transaction.all.forEach(DOM.addTransaction)
+            
             DOM.updateBalance()
 
             Storage.set(Transaction.all)
